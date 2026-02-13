@@ -1,0 +1,75 @@
+<idea-plugin>
+    <id>com.jakubjirak.gitworkflow</id>
+    <name>Git Workflow Enforcer</name>
+    <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+
+    <description><![CDATA[
+    <h2>Git Workflow Enforcer</h2>
+    <p>Enforces team Git workflow rules directly in your IDE — branch naming conventions, commit message
+    format, merge policies, and more. Configurable via <code>.git-workflow.yaml</code> shared through Git.</p>
+
+    <h3>Features</h3>
+    <ul>
+        <li><b>Branch naming</b> — enforce Gitflow, trunk-based, or custom naming conventions</li>
+        <li><b>Commit messages</b> — Conventional Commits format, JIRA key requirement, length limits</li>
+        <li><b>Merge policies</b> — protect branches, require PRs, block direct pushes</li>
+        <li><b>Status bar</b> — real-time compliance indicator</li>
+        <li><b>Pre-commit validation</b> — catch violations before they happen</li>
+        <li><b>Team config</b> — share rules via <code>.git-workflow.yaml</code> in your repo</li>
+    </ul>
+
+    <h3>Workflow Presets</h3>
+    <ul>
+        <li><b>Gitflow</b> — feature/*, bugfix/*, release/*, hotfix/* branches</li>
+        <li><b>Trunk-Based</b> — short-lived branches from main</li>
+        <li><b>GitHub Flow</b> — feature branches with PR-based merges</li>
+        <li><b>Custom</b> — define your own rules</li>
+    </ul>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Status bar widget -->
+        <statusBarWidgetFactory
+                id="com.jakubjirak.gitworkflow.statusBarWidget"
+                implementation="com.jakubjirak.gitworkflow.ui.WorkflowStatusBarWidgetFactory"
+                order="first"/>
+
+        <!-- Tool window -->
+        <toolWindow
+                id="Git Workflow"
+                anchor="bottom"
+                secondary="true"
+                icon="AllIcons.Vcs.Branch"
+                factoryClass="com.jakubjirak.gitworkflow.ui.WorkflowToolWindowFactory"/>
+
+        <!-- Settings page -->
+        <projectConfigurable
+                id="com.jakubjirak.gitworkflow.settings"
+                parentId="tools"
+                displayName="Git Workflow Enforcer"
+                instance="com.jakubjirak.gitworkflow.settings.GitWorkflowConfigurable"/>
+
+        <!-- Persistent settings -->
+        <projectService
+                serviceImplementation="com.jakubjirak.gitworkflow.settings.GitWorkflowSettings"/>
+
+        <!-- Notification group -->
+        <notificationGroup
+                id="Git Workflow Enforcer"
+                displayType="BALLOON"
+                toolWindowId="Git Workflow"/>
+
+        <!-- Checkin handler factory for pre-commit validation -->
+        <vcs.checkinHandlerFactory
+                implementation="com.jakubjirak.gitworkflow.vcs.WorkflowCheckinHandlerFactory"/>
+    </extensions>
+
+    <applicationListeners>
+    </applicationListeners>
+
+    <actions>
+    </actions>
+</idea-plugin>
