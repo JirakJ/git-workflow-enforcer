@@ -47,8 +47,6 @@ class WorkflowStatusBarWidget(private val project: Project) : StatusBarWidget, S
         refresh()
     }
 
-    override fun getPresentation(): StatusBarWidget.WidgetPresentation = this
-
     @NlsContexts.Label
     override fun getText(): String {
         val settings = GitWorkflowSettings.getInstance(project)
