@@ -5,28 +5,35 @@
     <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
     <description><![CDATA[
-    <h2>Git Workflow Enforcer</h2>
-    <p>Enforces team Git workflow rules directly in your IDE — branch naming conventions, commit message
-    format, merge policies, and more. Configurable via <code>.git-workflow.yaml</code> shared through Git.</p>
+<h2>Git Workflow Enforcer</h2>
+<p>
+  Consistent Git workflows shouldn't rely on code review. Git Workflow Enforcer validates branch names,
+  commit messages, and merge policies <b>before</b> commits happen — ensuring every team member follows
+  the same rules automatically.
+</p>
 
-    <h3>Features</h3>
-    <ul>
-        <li><b>Branch naming</b> — enforce Gitflow, trunk-based, or custom naming conventions</li>
-        <li><b>Commit messages</b> — Conventional Commits format, JIRA key requirement, length limits</li>
-        <li><b>Merge policies</b> — protect branches, require PRs, block direct pushes</li>
-        <li><b>Status bar</b> — real-time compliance indicator</li>
-        <li><b>Pre-commit validation</b> — catch violations before they happen</li>
-        <li><b>Team config</b> — share rules via <code>.git-workflow.yaml</code> in your repo</li>
-    </ul>
+<h2>Key Features</h2>
+<ul>
+  <li><b>Branch Naming Rules</b> — Enforce Gitflow, trunk-based, or custom naming conventions</li>
+  <li><b>Commit Message Validation</b> — Validate format, length, and conventional commit compliance</li>
+  <li><b>Merge Policies</b> — Configure allowed merge strategies per branch</li>
+  <li><b>Pre-Commit Validation</b> — Block non-compliant commits with clear error messages</li>
+  <li><b>Status Bar Indicator</b> — Visual compliance status always visible</li>
+  <li><b>Team Config</b> — Share rules via <code>.git-workflow.yaml</code> in the repository</li>
+</ul>
 
-    <h3>Workflow Presets</h3>
-    <ul>
-        <li><b>Gitflow</b> — feature/*, bugfix/*, release/*, hotfix/* branches</li>
-        <li><b>Trunk-Based</b> — short-lived branches from main</li>
-        <li><b>GitHub Flow</b> — feature branches with PR-based merges</li>
-        <li><b>Custom</b> — define your own rules</li>
-    </ul>
-    ]]></description>
+<h2>Why Git Workflow Enforcer?</h2>
+<p>
+  Manual enforcement of Git conventions doesn't scale. This plugin makes compliance automatic and
+  frictionless, reducing code review churn and keeping your Git history clean.
+</p>
+
+<h2>Free vs Pro</h2>
+<ul>
+  <li><b>Free:</b> Branch naming enforcement, commit message validation, status bar indicator, team config</li>
+  <li><b>Pro:</b> Custom regex patterns, merge policy enforcement, workflow analytics, compliance reports, and integration with CI/CD pipeline gates</li>
+</ul>
+]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
