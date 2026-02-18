@@ -2,38 +2,73 @@
     <id>com.jakubjirak.gitworkflow</id>
     <product-descriptor code="PGITWORKFLOW" release-date="20260215" release-version="20262" optional="true"/>
     <name>Git Workflow Enforcer</name>
-    <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+    <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
     <description><![CDATA[
-<h2>Git Workflow Enforcer</h2>
+<h2>Git Workflow Enforcer — Automatic Branch, Commit, and Merge Validation</h2>
+
 <p>
-  Consistent Git workflows shouldn't rely on code review. Git Workflow Enforcer validates branch names,
-  commit messages, and merge policies <b>before</b> commits happen — ensuring every team member follows
-  the same rules automatically.
+Stop catching Git convention violations in code reviews. Git Workflow Enforcer validates branch names, commit messages, and merge policies <b>before</b> commits happen — keeping your Git history clean and your team consistent.
 </p>
 
-<h2>Key Features</h2>
+<h3>Branch Naming</h3>
 <ul>
-  <li><b>Branch Naming Rules</b> — Enforce Gitflow, trunk-based, or custom naming conventions</li>
-  <li><b>Commit Message Validation</b> — Validate format, length, and conventional commit compliance</li>
-  <li><b>Merge Policies</b> — Configure allowed merge strategies per branch</li>
-  <li><b>Pre-Commit Validation</b> — Block non-compliant commits with clear error messages</li>
-  <li><b>Status Bar Indicator</b> — Visual compliance status always visible</li>
-  <li><b>Team Config</b> — Share rules via <code>.git-workflow.yaml</code> in the repository</li>
+  <li>Enforce Gitflow, trunk-based, GitHub Flow, or custom naming patterns</li>
+  <li>Real-time validation with clear error messages</li>
+  <li>Configurable regex patterns for any naming convention</li>
 </ul>
 
-<h2>Why Git Workflow Enforcer?</h2>
-<p>
-  Manual enforcement of Git conventions doesn't scale. This plugin makes compliance automatic and
-  frictionless, reducing code review churn and keeping your Git history clean.
-</p>
-
-<h2>Free vs Pro</h2>
+<h3>Commit Message Validation</h3>
 <ul>
-  <li><b>Free:</b> Branch naming enforcement, commit message validation, status bar indicator, team config</li>
-  <li><b>Pro:</b> Custom regex patterns, merge policy enforcement, workflow analytics, compliance reports, and integration with CI/CD pipeline gates</li>
+  <li>Conventional Commits format enforcement</li>
+  <li>Configurable maximum subject length (default 72 characters)</li>
+  <li>JIRA/issue key requirement in commit messages</li>
+  <li>11 allowed commit types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert</li>
 </ul>
-]]></description>
+
+<h3>Merge and Push Policies</h3>
+<ul>
+  <li>Block direct pushes to protected branches (main, master, develop)</li>
+  <li>Enforce pull request workflows</li>
+  <li>Merge direction validation (feature → develop, hotfix → main)</li>
+  <li>Required reviewers per file path (CODEOWNERS-like rules)</li>
+</ul>
+
+<h3>IDE Integration</h3>
+<ul>
+  <li>Status bar widget with real-time compliance status</li>
+  <li>Pre-commit validation with block/warn options</li>
+  <li>Violations tool window grouped by type</li>
+  <li>Balloon notifications with fix suggestions</li>
+</ul>
+
+<h3>Team Configuration</h3>
+<ul>
+  <li>Shared <code>.git-workflow.yaml</code> versioned in Git</li>
+  <li>Auto-reload when config file changes</li>
+  <li>Workflow presets: Gitflow, Trunk-Based, GitHub Flow, Custom</li>
+</ul>
+
+<h3>Pricing</h3>
+<ul>
+  <li><b>Free:</b> Branch naming, commit validation, status bar widget, pre-commit checks</li>
+  <li><b>Enterprise ($15/dev/month):</b> Custom regex rules, merge policies, audit log, compliance dashboard, team config</li>
+</ul>
+
+<h3>Requirements</h3>
+<ul>
+  <li>IntelliJ IDEA 2024.3+ (or any JetBrains IDE build 243–252.*)</li>
+  <li>Git4Idea plugin (bundled with all JetBrains IDEs)</li>
+  <li>Java 17+</li>
+</ul>
+
+<h3>Support</h3>
+<ul>
+  <li>GitHub: <a href="https://github.com/JirakJ/git-workflow-enforcer">github.com/JirakJ/git-workflow-enforcer</a></li>
+  <li>Issues: <a href="https://github.com/JirakJ/git-workflow-enforcer/issues">Report a Bug</a></li>
+  <li>Author: Jakub Jirák</li>
+</ul>
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
@@ -80,4 +115,18 @@
 
     <actions>
     </actions>
+
+    <change-notes><![CDATA[
+        <h3>What's New</h3>
+        <ul>
+            <li><b>Branch Name Validation</b> - Enforce Gitflow, trunk-based, GitHub Flow, or custom naming conventions with regex patterns</li>
+            <li><b>Commit Message Checks</b> - Validate Conventional Commits format, subject length, and JIRA issue references</li>
+            <li><b>Pre-Commit Validation</b> - Block or warn on non-compliant commits before they happen</li>
+            <li><b>Status Bar Widget</b> - Real-time compliance indicator showing green (compliant) or red (violations)</li>
+            <li><b>Violations Tool Window</b> - View all violations grouped by type: branch naming, commit format, merge policy</li>
+            <li><b>Merge Policy Enforcement</b> - Protect branches from direct pushes and enforce pull request workflows</li>
+            <li><b>Team Config File</b> - Share rules across the team via a versioned .git-workflow.yaml file</li>
+            <li><b>Workflow Presets</b> - Choose from Gitflow, Trunk-Based, GitHub Flow, or fully custom workflows</li>
+        </ul>
+    ]]></change-notes>
 </idea-plugin>
