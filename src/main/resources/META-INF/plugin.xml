@@ -4,8 +4,7 @@
     <name>Git Workflow Enforcer</name>
     <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
-    <description><![CDATA[
-<h2>Git Workflow Enforcer — Automatic Branch, Commit, and Merge Validation</h2>
+    <description><![CDATA[<h2>Git Workflow Enforcer — Automatic Branch, Commit, and Merge Validation</h2>
 
 <p>
 Stop catching Git convention violations in code reviews. Git Workflow Enforcer validates branch names, commit messages, and merge policies <b>before</b> commits happen — keeping your Git history clean and your team consistent.
@@ -49,12 +48,6 @@ Stop catching Git convention violations in code reviews. Git Workflow Enforcer v
   <li>Workflow presets: Gitflow, Trunk-Based, GitHub Flow, Custom</li>
 </ul>
 
-<h3>Pricing</h3>
-<ul>
-  <li><b>Free:</b> Branch naming, commit validation, status bar widget, pre-commit checks</li>
-  <li><b>Enterprise ($15/dev/month):</b> Custom regex rules, merge policies, audit log, compliance dashboard, team config</li>
-</ul>
-
 <h3>Requirements</h3>
 <ul>
   <li>IntelliJ IDEA 2024.3+ (or any JetBrains IDE build 243–252.*)</li>
@@ -67,8 +60,7 @@ Stop catching Git convention violations in code reviews. Git Workflow Enforcer v
   <li>GitHub: <a href="https://github.com/JirakJ/git-workflow-enforcer">github.com/JirakJ/git-workflow-enforcer</a></li>
   <li>Issues: <a href="https://github.com/JirakJ/git-workflow-enforcer/issues">Report a Bug</a></li>
   <li>Author: Jakub Jirák</li>
-</ul>
-    ]]></description>
+</ul>]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
@@ -108,6 +100,9 @@ Stop catching Git convention violations in code reviews. Git Workflow Enforcer v
         <!-- Checkin handler factory for pre-commit validation -->
         <vcs.checkinHandlerFactory
                 implementation="com.jakubjirak.gitworkflow.vcs.WorkflowCheckinHandlerFactory"/>
+    
+        <notificationGroup id="Git Workflow Enforcer Feedback" displayType="BALLOON"/>
+        <projectActivity implementation="com.jakubjirak.gitworkflow.feedback.FeedbackNotifier"/>
     </extensions>
 
     <applicationListeners>
