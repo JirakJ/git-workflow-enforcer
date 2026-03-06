@@ -8,7 +8,6 @@
 
 ## ✨ Features
 
-### Free Tier
 - **Status bar indicator** — real-time compliance widget: `✓ Compliant` (green) or `✗ N Violation(s)` (red/yellow)
 - **Branch name validation** — 3 default patterns (feature, bugfix, hotfix) with violation warnings
 - **Commit message length check** — configurable max subject length (default 72 characters)
@@ -17,8 +16,6 @@
 - **Pre-commit validation** — checkin handler blocks or warns on violations before commit
 - **Violations tool window** — grouped by type (Branch Naming / Commit Format / Merge Policy / Base Branch)
 - **Basic notifications** — warning and error balloons with fix suggestions
-
-### Enterprise Tier ($15/dev/month)
 - **All workflow presets** — Gitflow, Trunk-Based Development, GitHub Flow, and Custom
 - **Custom regex rules** — define your own branch naming patterns with allowed base branches
 - **Merge policy enforcement** — block direct pushes to protected branches, require pull requests
@@ -47,7 +44,7 @@
 2. The status bar widget appears automatically — check your current compliance status
 3. Open **Settings** → **Tools** → **Git Workflow Enforcer** to select a workflow preset
 4. Create a branch or commit — the plugin validates in real-time
-5. *(Enterprise)* Add a `.git-workflow.yaml` to your project root to share rules with the team
+5. Add a `.git-workflow.yaml` to your project root to share rules with the team
 
 ### Example `.git-workflow.yaml`
 
