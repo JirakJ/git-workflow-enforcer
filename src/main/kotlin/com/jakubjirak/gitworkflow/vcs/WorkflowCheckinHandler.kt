@@ -2,7 +2,6 @@ package com.jakubjirak.gitworkflow.vcs
 
 import com.jakubjirak.gitworkflow.config.WorkflowConfigLoader
 import com.jakubjirak.gitworkflow.engine.WorkflowEnforcerEngine
-import com.jakubjirak.gitworkflow.licensing.FreemiumGate
 import com.jakubjirak.gitworkflow.model.Severity
 import com.jakubjirak.gitworkflow.model.Violation
 import com.jakubjirak.gitworkflow.settings.GitWorkflowSettings

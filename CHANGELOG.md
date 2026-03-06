@@ -45,4 +45,4 @@
 - **Enterprise:** Team config via `.git-workflow.yaml` with auto-reload file watcher
 - **Enterprise:** Pre-push validation hook
 - **Enterprise:** Required reviewers per path (CODEOWNERS-like)
-- Freemium licensing gate with Free and Enterprise ($15/dev/month) tiers
+- Balloon notifications for blocked commands
