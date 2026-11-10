@@ -49,7 +49,7 @@
 - Configurable max subject length (default: 72 characters)
 - Optional JIRA issue key requirement (`[A-Z]+-[0-9]+`)
 
-#### 🔒 Merge Policy (Enterprise)
+#### 🔒 Merge Policy
 - Block direct pushes to protected branches (`main`, `master`, `develop`)
 - Require pull requests for all protected branch changes
 - Merge direction validation (e.g., feature → develop, not feature → main)
@@ -69,7 +69,7 @@
 - Severity levels: ERROR (blocks commit) and WARNING (allows with notice)
 - Fix suggestions for every violation
 
-#### 👥 Team Configuration (Enterprise)
+#### 👥 Team Configuration
 - **Shared `.git-workflow.yaml`** — version-controlled team rules with auto-reload
 - **Audit log** — track all violations and overrides across the team
 - **Compliance dashboard** — team-wide metrics and trends
@@ -78,10 +78,7 @@
 
 ### 💰 Pricing Model
 
-| Tier           | Price                             | Highlights                                       |
-|----------------|-----------------------------------|--------------------------------------------------|
-| **Free**       | $0                                | Status bar indicator, branch & commit validation, Conventional Commits, JIRA keys, pre-commit hooks, violations tool window |
-| **Enterprise** | $15/dev/month or $150/dev/year    | All workflow presets, custom regex rules, merge policy enforcement, required reviewers, pre-push validation, shared team config, audit log, compliance dashboard |
+Free & open source (Apache-2.0) — every feature is available to everyone, no license needed.
 
 ---
 
@@ -125,9 +122,9 @@
 | 3 | **Violations Tool Window** — Grouped violations by type with severity and fix suggestions |
 | 4 | **Settings Panel** — Workflow preset selector (Gitflow/Trunk/GitHub Flow/Custom) with branch patterns |
 | 5 | **Conventional Commits** — Commit message editor with type dropdown and validation feedback |
-| 6 | **Merge Policy Configuration (Enterprise)** — Protected branches and required reviewers setup |
+| 6 | **Merge Policy Configuration** — Protected branches and required reviewers setup |
 | 7 | **Team Config File** — `.git-workflow.yaml` editor with auto-reload notification |
-| 8 | **Compliance Dashboard (Enterprise)** — Team-wide compliance metrics and violation trends |
+| 8 | **Compliance Dashboard** — Team-wide compliance metrics and violation trends |
 
 ---
 
@@ -183,7 +180,6 @@
 - [ ] Screenshots captured (minimum 5, 1280×800px recommended)
 - [ ] Plugin signed with JetBrains Marketplace certificate
 - [ ] Changelog written for initial release
-- [ ] Pricing tiers configured in JetBrains Marketplace
 - [ ] Vendor verified on JetBrains Marketplace
 - [ ] Compatibility range tested (2024.3+)
 - [ ] License agreement uploaded (MIT)
