@@ -24,40 +24,18 @@ Every team agrees on Git conventions. Few teams follow them consistently. <stron
   <li><strong>JIRA Key Requirement</strong> — Ensures every commit references a JIRA ticket (<code>[A-Z]+-[0-9]+</code>).</li>
   <li><strong>Pre-Commit Validation</strong> — Blocks or warns on non-compliant commits before they enter your history.</li>
   <li><strong>Violations Tool Window</strong> — Grouped, searchable list of all current violations with quick-fix suggestions.</li>
-  <li><strong>Workflow Presets</strong> — Out-of-the-box support for Gitflow, Trunk-Based Development, GitHub Flow, and fully custom workflows. <em>(Enterprise)</em></li>
-  <li><strong>Unlimited Custom Patterns</strong> — Define any branch naming regex to match your team's conventions. <em>(Enterprise)</em></li>
-  <li><strong>Merge Policy Enforcement</strong> — Block direct pushes to protected branches and require pull requests. <em>(Enterprise)</em></li>
-  <li><strong>Merge Direction Validation</strong> — Enforce correct merge flow (e.g., feature → develop, not feature → main). <em>(Enterprise)</em></li>
-  <li><strong>Required Reviewers</strong> — CODEOWNERS-style reviewer requirements per file path with minimum approval counts. <em>(Enterprise)</em></li>
-  <li><strong>Pre-Push Hook Integration</strong> — Catch violations before code leaves your machine. <em>(Enterprise)</em></li>
-  <li><strong>Team Config File</strong> — Share rules via <code>.git-workflow.yaml</code> committed to your repo — new team members are compliant from clone. <em>(Enterprise)</em></li>
-  <li><strong>Audit Log &amp; Compliance Dashboard</strong> — Track violations and compliance metrics across the team. <em>(Enterprise)</em></li>
+  <li><strong>Workflow Presets</strong> — Out-of-the-box support for Gitflow, Trunk-Based Development, GitHub Flow, and fully custom workflows.</li>
+  <li><strong>Unlimited Custom Patterns</strong> — Define any branch naming regex to match your team's conventions.</li>
+  <li><strong>Merge Policy Enforcement</strong> — Block direct pushes to protected branches and require pull requests.</li>
+  <li><strong>Merge Direction Validation</strong> — Enforce correct merge flow (e.g., feature → develop, not feature → main).</li>
+  <li><strong>Required Reviewers</strong> — CODEOWNERS-style reviewer requirements per file path with minimum approval counts.</li>
+  <li><strong>Pre-Push Hook Integration</strong> — Catch violations before code leaves your machine.</li>
+  <li><strong>Team Config File</strong> — Share rules via <code>.git-workflow.yaml</code> committed to your repo — new team members are compliant from clone.</li>
+  <li><strong>Audit Log &amp; Compliance Dashboard</strong> — Track violations and compliance metrics across the team.</li>
 </ul>
 
-<h3>Free Tier</h3>
-<p>Essential workflow enforcement at no cost:</p>
-<ul>
-  <li>Status bar compliance indicator (real-time)</li>
-  <li>3 default branch naming patterns (feature/, bugfix/, hotfix/)</li>
-  <li>Commit message length validation</li>
-  <li>Conventional Commits format enforcement</li>
-  <li>JIRA key requirement validation</li>
-  <li>Pre-commit validation (block/warn)</li>
-  <li>Violations tool window with grouping</li>
-</ul>
-
-<h3>Enterprise Tier — $15/dev/month (or $150/dev/year)</h3>
-<ul>
-  <li>Everything in Free</li>
-  <li>All workflow presets (Gitflow, Trunk-Based, GitHub Flow, Custom)</li>
-  <li>Unlimited custom regex patterns for branch naming</li>
-  <li>Merge policy enforcement — block direct pushes, require PRs</li>
-  <li>Merge direction validation</li>
-  <li>Required reviewers per file path (CODEOWNERS-style)</li>
-  <li>Pre-push hook integration</li>
-  <li>Team config file (<code>.git-workflow.yaml</code>) — version-controlled rules</li>
-  <li>Audit log and compliance dashboard</li>
-</ul>
+<h3>Free &amp; Open Source</h3>
+<p>Every feature is free for everyone — no license, no limits. The source code is available under the Apache-2.0 license at <a href="https://github.com/JirakJ/git-workflow-enforcer">github.com/JirakJ/git-workflow-enforcer</a>. Issues and pull requests are welcome.</p>
 
 <h3>Getting Started</h3>
 <ol>
@@ -79,10 +57,8 @@ git, workflow, conventional-commits, branch-naming, code-review
 Version Control
 
 ## Pricing
-| Tier | Price | Features |
-|------|-------|----------|
-| Free | $0 | Status bar compliance, 3 branch patterns, commit length validation, conventional commits, JIRA key check, pre-commit validation, violations window |
-| Enterprise | $15/dev/month or $150/dev/year | Workflow presets, unlimited patterns, merge policies, merge direction, required reviewers, pre-push hooks, team config, audit log, dashboard |
+
+Free & open source (Apache-2.0) — every feature is available to everyone, no license needed.
 
 ## Screenshots Needed
 1. **Status Bar Compliance** — IDE status bar showing the real-time compliance indicator with ✓ Compliant state and ✗ Violations state side by side.
