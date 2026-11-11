@@ -33,29 +33,40 @@ object WorkflowEnforcerEngine {
         }
     }
 
-    fun validateMergeTarget(targetBranch: String, config: WorkflowConfig): List<Violation> {
+    fun validateProtectedBranch(branchName: String, config: WorkflowConfig): List<Violation> {
         return try {
-            MergePolicyValidator.validateMergeTarget(targetBranch, config)
+            MergePolicyValidator.validateCommitOnBranch(branchName, config)
         } catch (e: Exception) {
-            LOG.error("Error validating merge target: $targetBranch", e)
+            LOG.error("Error checking protected branch: $branchName", e)
             emptyList()
         }
     }
 
-    fun validateAll(
-        branchName: String,
+    /**
+     * Everything the pre-commit check reports for a commit of [commitMessage] on [branchName]
+     * (null when HEAD is detached / no repository).
+     *
+     * - commit message rules run when [checkMessage] (setting "Enable commit message validation")
+     * - branch naming rules run when [checkBranchName] (setting "Enable branch name validation")
+     * - the protected-branch policy (`merge:` section) always runs; it is configured, or switched
+     *   off, through `protected_branches`, `block_direct_push` and `require_pr`
+     */
+    fun validateCommit(
         commitMessage: String?,
+        branchName: String?,
         config: WorkflowConfig,
+        checkMessage: Boolean = true,
+        checkBranchName: Boolean = true,
     ): List<Violation> {
         val violations = mutableListOf<Violation>()
 
-        violations.addAll(validateBranch(branchName, config))
-
-        if (!commitMessage.isNullOrBlank()) {
+        if (checkMessage && commitMessage != null) {
             violations.addAll(validateCommitMessage(commitMessage, config))
         }
-
-        violations.addAll(validateMergeTarget(branchName, config))
+        if (branchName != null) {
+            if (checkBranchName) violations.addAll(validateBranch(branchName, config))
+            violations.addAll(validateProtectedBranch(branchName, config))
+        }
 
         return violations
     }

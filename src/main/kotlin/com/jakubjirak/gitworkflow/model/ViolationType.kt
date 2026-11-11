@@ -6,6 +6,5 @@ package com.jakubjirak.gitworkflow.model
 enum class ViolationType {
     BRANCH_NAME,
     COMMIT_FORMAT,
-    MERGE_POLICY,
-    BASE_BRANCH,
+    PROTECTED_BRANCH,
 }

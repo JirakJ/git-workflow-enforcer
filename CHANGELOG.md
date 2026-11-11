@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [2026.9.1] - 2026-11-12
+
+### Added
+- The pre-commit check now flags committing directly on a protected branch. The policy comes from the
+  preset or the `merge:` section of `.git-workflow.yaml` (`protected_branches`, `block_direct_push` →
+  error, `require_pr` alone → warning). Previously this code existed but was never called.
+
+### Fixed
+- Branch-name validation in the pre-commit check no longer depends on the commit-message toggle:
+  each toggle now switches only its own check.
+
+### Removed
+- The base-branch check and merge-direction check, which were never called (the plugin cannot know which
+  branch a branch was created from or merged into). Documentation no longer claims them; an `allowed_base`
+  key in `.git-workflow.yaml` is still accepted but ignored.
+
 ## [2026.9.0] - 2026-11-11
 
 ### Removed

@@ -111,8 +111,7 @@ class WorkflowToolWindowPanel(private val project: Project) : JPanel(BorderLayou
         return when (type) {
             ViolationType.BRANCH_NAME -> "Branch Naming"
             ViolationType.COMMIT_FORMAT -> "Commit Format"
-            ViolationType.MERGE_POLICY -> "Merge Policy"
-            ViolationType.BASE_BRANCH -> "Base Branch"
+            ViolationType.PROTECTED_BRANCH -> "Protected Branch"
         }
     }
 

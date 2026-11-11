@@ -71,25 +71,6 @@ class BranchNameValidatorTest {
     }
 
     @Test
-    fun `base branch validation passes for correct base`() {
-        val violations = BranchNameValidator.validateBaseBranch("feature/test", "develop", gitflowConfig)
-        assertTrue(violations.isEmpty())
-    }
-
-    @Test
-    fun `base branch validation fails for wrong base`() {
-        val violations = BranchNameValidator.validateBaseBranch("feature/test", "main", gitflowConfig)
-        assertEquals(1, violations.size)
-        assertEquals(ViolationType.BASE_BRANCH, violations[0].type)
-    }
-
-    @Test
-    fun `hotfix from main passes base branch validation`() {
-        val violations = BranchNameValidator.validateBaseBranch("hotfix/urgent", "main", gitflowConfig)
-        assertTrue(violations.isEmpty())
-    }
-
-    @Test
     fun `trunk-based short-lived branch passes validation`() {
         val trunkConfig = WorkflowConfigLoader.getDefaultConfig(WorkflowPreset.TRUNK_BASED)
         val violations = BranchNameValidator.validate("john/fix-bug", trunkConfig)
