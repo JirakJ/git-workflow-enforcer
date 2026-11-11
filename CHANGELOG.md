@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Removed
+- Settings that had no effect: "merge policy validation", "Conventional Commits", "require issue reference", "max subject length" and "protected branches". These rules always came from the selected preset or `.git-workflow.yaml`; the settings page now says so.
+- Documentation of features that do not exist: merge/push policy enforcement, merge direction checks, required reviewers, pre-push hook, config auto-reload, audit log and the compliance dashboard.
+
+### Fixed
+- The README `.git-workflow.yaml` example used keys the loader does not read (`branchRules`, `allowedBase`, `commitRules`, …); it now uses the real keys (`branches`, `allowed_base`, `commits`, `max_subject_length`, …).
+- An unknown preset name stored in settings no longer breaks the settings page.
+
 ## [2026.8.0] - 2026-11-10
 
 ### Changed

@@ -167,4 +167,35 @@ class WorkflowConfigLoaderTest {
         assertTrue(config.commitRules.requireIssueRef)
         assertEquals("PROJ-\\d+", config.commitRules.issueRefPattern)
     }
+
+    @Test
+    fun `README example config parses into the documented rules`() {
+        // Keep in sync with the README ".git-workflow.yaml" example.
+        val yaml = "preset: gitflow                 # gitflow | trunk_based | github_flow | custom\n" +
+            "branches:                       # replaces the preset's branch rules\n" +
+            "  - pattern: \"feature/[A-Z]+-[0-9]+-.*\"\n" +
+            "    allowed_base: [\"develop\"]\n" +
+            "    description: \"Feature branches\"\n" +
+            "  - pattern: \"hotfix/.+\"\n" +
+            "    allowed_base: [\"main\", \"master\"]\n" +
+            "    description: \"Hotfix branches\"\n" +
+            "  - pattern: \"main|master|develop\"\n" +
+            "commits:                        # replaces the preset's commit rules\n" +
+            "  conventional_commits: true\n" +
+            "  max_subject_length: 72\n" +
+            "  require_issue_ref: true\n" +
+            "  issue_ref_pattern: \"[A-Z]+-\\\\d+\"\n" +
+            "  allowed_types: [feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert]\n"
+
+        val config = WorkflowConfigLoader.parseConfig(yaml)
+
+        assertEquals(WorkflowPreset.GITFLOW, config.preset)
+        assertEquals(3, config.branchRules.size)
+        assertEquals(listOf("develop"), config.branchRules[0].allowedBase)
+        assertTrue(config.commitRules.conventionalCommits)
+        assertTrue(config.commitRules.requireIssueRef)
+        assertEquals(72, config.commitRules.maxSubjectLength)
+        assertEquals("[A-Z]+-\\d+", config.commitRules.issueRefPattern)
+        assertEquals(11, config.commitRules.allowedTypes.size)
+    }
 }
