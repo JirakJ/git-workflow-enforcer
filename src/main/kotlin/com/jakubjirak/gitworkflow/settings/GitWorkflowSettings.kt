@@ -21,12 +21,7 @@ class GitWorkflowSettings : PersistentStateComponent<GitWorkflowSettings> {
     var enabled: Boolean = true
     var enableBranchValidation: Boolean = true
     var enableCommitValidation: Boolean = true
-    var enableMergeValidation: Boolean = true
     var presetName: String = WorkflowPreset.GITFLOW.name
-    var maxSubjectLength: Int = 72
-    var requireIssueRef: Boolean = false
-    var conventionalCommits: Boolean = true
-    var protectedBranches: String = "main,master,develop"
 
     override fun getState(): GitWorkflowSettings = this
 
@@ -40,10 +35,6 @@ class GitWorkflowSettings : PersistentStateComponent<GitWorkflowSettings> {
         } catch (_: IllegalArgumentException) {
             WorkflowPreset.GITFLOW
         }
-    }
-
-    fun getProtectedBranchList(): List<String> {
-        return protectedBranches.split(",").map { it.trim() }.filter { it.isNotEmpty() }
     }
 
     companion object {

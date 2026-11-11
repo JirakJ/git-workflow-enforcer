@@ -21,3 +21,6 @@ Thumbs.db
 /sandbox/
 .intellijPlatform/
 .kotlin/
+
+# Local-only artefacts and secrets
+.env
