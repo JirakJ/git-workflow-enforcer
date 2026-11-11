@@ -99,6 +99,7 @@ Stop catching Git convention violations in code reviews. Git Workflow Enforcer v
     </actions>
 
     <change-notes><![CDATA[
+        <h3>2026.9.0</h3><ul><li>Removed: Settings that had no effect: "merge policy validation", "Conventional Commits", "require issue reference", "max subject length" and "protected branches". These rules always came from the selected preset or <code>.git-workflow.yaml</code>; the settings page now says so.</li><li>Removed: Documentation of features that do not exist: merge/push policy enforcement, merge direction checks, required reviewers, pre-push hook, config auto-reload, audit log and the compliance dashboard.</li><li>Fixed: The README <code>.git-workflow.yaml</code> example used keys the loader does not read (<code>branchRules</code>, <code>allowedBase</code>, <code>commitRules</code>, …); it now uses the real keys (<code>branches</code>, <code>allowed_base</code>, <code>commits</code>, <code>max_subject_length</code>, …).</li><li>Fixed: An unknown preset name stored in settings no longer breaks the settings page.</li></ul>
         <h3>2026.8.0</h3><ul><li>The plugin is now completely free — all features unlocked, no license needed.</li><li>Source code is now open source under Apache-2.0: https://github.com/JirakJ/git-workflow-enforcer</li></ul>
 
     ]]></change-notes>

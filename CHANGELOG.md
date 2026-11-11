@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2026.9.0] - 2026-11-11
+
 ### Removed
 - Settings that had no effect: "merge policy validation", "Conventional Commits", "require issue reference", "max subject length" and "protected branches". These rules always came from the selected preset or `.git-workflow.yaml`; the settings page now says so.
 - Documentation of features that do not exist: merge/push policy enforcement, merge direction checks, required reviewers, pre-push hook, config auto-reload, audit log and the compliance dashboard.
