@@ -4,72 +4,41 @@ import com.jakubjirak.gitworkflow.model.Severity
 import com.jakubjirak.gitworkflow.model.Violation
 import com.jakubjirak.gitworkflow.model.ViolationType
 import com.jakubjirak.gitworkflow.model.WorkflowConfig
-import com.intellij.openapi.diagnostic.Logger
 
 /**
- * Validates merge operations against configured merge policies.
- * Checks protected branches, merge direction, and PR requirements.
+ * Applies the `merge:` policy of the workflow to commits: committing directly on a
+ * protected branch is reported before the commit happens.
+ *
+ * - `block_direct_push: true`  → ERROR (the pre-commit dialog defaults to Cancel)
+ * - `require_pr: true` only    → WARNING
+ * - both false                 → no check
  */
 object MergePolicyValidator {
 
-    private val LOG = Logger.getInstance(MergePolicyValidator::class.java)
+    fun validateCommitOnBranch(branchName: String, config: WorkflowConfig): List<Violation> {
+        val rules = config.mergeRules
+        if (!isProtected(branchName, rules.protectedBranches)) return emptyList()
 
-    fun validateMergeTarget(
-        targetBranch: String,
-        config: WorkflowConfig,
-    ): List<Violation> {
-        val mergeRules = config.mergeRules
-        val violations = mutableListOf<Violation>()
-
-        if (mergeRules.blockDirectPush && isProtected(targetBranch, mergeRules.protectedBranches)) {
-            violations.add(
-                Violation(
-                    type = ViolationType.MERGE_POLICY,
-                    severity = Severity.ERROR,
-                    message = "Direct push to protected branch \"$targetBranch\" is not allowed",
-                    suggestion = "Create a pull request to merge changes into $targetBranch",
-                )
+        val suggestion = "Create a feature branch and merge it into $branchName through a pull request"
+        val violation = when {
+            rules.blockDirectPush -> Violation(
+                type = ViolationType.PROTECTED_BRANCH,
+                severity = Severity.ERROR,
+                message = "Committing directly on protected branch \"$branchName\" is not allowed",
+                suggestion = suggestion,
             )
+            rules.requirePR -> Violation(
+                type = ViolationType.PROTECTED_BRANCH,
+                severity = Severity.WARNING,
+                message = "Changes to protected branch \"$branchName\" should go through a pull request",
+                suggestion = suggestion,
+            )
+            else -> null
         }
-
-        return violations
+        return listOfNotNull(violation)
     }
 
-    fun validateMergeDirection(
-        sourceBranch: String,
-        targetBranch: String,
-        config: WorkflowConfig,
-    ): List<Violation> {
-        val branchRules = config.branchRules
-        val violations = mutableListOf<Violation>()
-
-        val sourceRule = branchRules.firstOrNull { rule ->
-            try {
-                sourceBranch.matches(Regex(rule.pattern))
-            } catch (e: Exception) {
-                LOG.warn("Invalid regex pattern: ${rule.pattern}", e)
-                false
-            }
-        }
-
-        if (sourceRule != null && sourceRule.allowedBase.isNotEmpty()) {
-            val validTargets = sourceRule.allowedBase
-            if (targetBranch !in validTargets) {
-                violations.add(
-                    Violation(
-                        type = ViolationType.MERGE_POLICY,
-                        severity = Severity.WARNING,
-                        message = "Merge from \"$sourceBranch\" to \"$targetBranch\" is not standard. " +
-                            "Expected target: ${validTargets.joinToString(", ")}",
-                        suggestion = "Merge into ${validTargets.first()} instead",
-                    )
-                )
-            }
-        }
-
-        return violations
-    }
-
+    /** A branch is protected when it equals, or fully matches the regex of, any entry. */
     fun isProtected(branchName: String, protectedBranches: List<String>): Boolean {
         return protectedBranches.any { protected ->
             branchName == protected || try {

@@ -7,7 +7,7 @@ Git Workflow Enforcer
 Enforce Git conventions in your IDE — branch naming and commit messages.
 
 ## Short Description
-Git workflow compliance in your IDE. Enforce branch naming, base branches, Conventional Commits, subject length and issue keys before you commit. Works with any Git server.
+Git workflow compliance in your IDE. Enforce branch naming, protected branches, Conventional Commits, subject length and issue keys before you commit. Works with any Git server.
 
 ## Full Description
 
@@ -18,7 +18,8 @@ Every team agrees on Git conventions. Few teams follow them consistently. <stron
 <h3>Key Features</h3>
 <ul>
   <li><strong>Compliance Indicator</strong> — status bar widget shows ✓ Compliant or ✗ N Violations for the current branch.</li>
-  <li><strong>Branch Naming Enforcement</strong> — validate branch names against preset or custom regex patterns, including the allowed base branch.</li>
+  <li><strong>Branch Naming Enforcement</strong> — validate branch names against preset or custom regex patterns.</li>
+  <li><strong>Protected Branches</strong> — committing directly on a protected branch (e.g. <code>main</code>) is blocked or warned before the commit.</li>
   <li><strong>Conventional Commits Validation</strong> — 11 allowed types: <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>style</code>, <code>refactor</code>, <code>perf</code>, <code>test</code>, <code>build</code>, <code>ci</code>, <code>chore</code>, <code>revert</code>.</li>
   <li><strong>Subject Length &amp; Issue Key</strong> — configurable subject limit (default 72) and optional <code>[A-Z]+-[0-9]+</code> issue reference.</li>
   <li><strong>Pre-Commit Check</strong> — violations are shown before the commit with Commit Anyway / Cancel.</li>

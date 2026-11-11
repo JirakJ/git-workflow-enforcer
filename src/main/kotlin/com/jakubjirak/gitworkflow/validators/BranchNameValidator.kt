@@ -37,33 +37,6 @@ object BranchNameValidator {
         )
     }
 
-    fun validateBaseBranch(
-        branchName: String,
-        baseBranch: String,
-        config: WorkflowConfig,
-    ): List<Violation> {
-        val rules = config.branchRules
-        val matchingRule = findMatchingRule(branchName, rules) ?: return emptyList()
-
-        if (matchingRule.allowedBase.isEmpty()) return emptyList()
-
-        val baseMatches = matchingRule.allowedBase.any { allowed ->
-            baseBranch == allowed || baseBranch.matches(Regex(allowed))
-        }
-
-        if (baseMatches) return emptyList()
-
-        val allowedBases = matchingRule.allowedBase.joinToString(", ")
-        return listOf(
-            Violation(
-                type = ViolationType.BASE_BRANCH,
-                severity = Severity.ERROR,
-                message = "Branch \"$branchName\" must be created from [$allowedBases], not \"$baseBranch\"",
-                suggestion = "Create this branch from ${matchingRule.allowedBase.first()} instead",
-            )
-        )
-    }
-
     fun findMatchingRule(branchName: String, rules: List<BranchRule>): BranchRule? {
         return rules.firstOrNull { rule ->
             try {

@@ -26,7 +26,8 @@ class WorkflowCheckinHandlerFactory : CheckinHandlerFactory() {
 }
 
 /**
- * Pre-commit validation handler that checks commit messages against workflow rules.
+ * Pre-commit check: commit message rules, branch naming rules and the protected-branch
+ * policy (committing directly on a protected branch) from the preset or `.git-workflow.yaml`.
  */
 class WorkflowCheckinHandler(
     private val panel: CheckinProjectPanel,
@@ -38,30 +39,20 @@ class WorkflowCheckinHandler(
         val project = panel.project
         val settings = GitWorkflowSettings.getInstance(project)
 
-        if (!settings.enabled || !settings.enableCommitValidation) {
-            return ReturnResult.COMMIT
-        }
+        if (!settings.enabled) return ReturnResult.COMMIT
 
         val config = loadConfig(project) ?: return ReturnResult.COMMIT
 
-        val violations = collectViolations(project, config, settings)
+        val violations = WorkflowEnforcerEngine.validateCommit(
+            commitMessage = panel.commitMessage,
+            branchName = getCurrentBranch(project),
+            config = config,
+            checkMessage = settings.enableCommitValidation,
+            checkBranchName = settings.enableBranchValidation,
+        )
         if (violations.isEmpty()) return ReturnResult.COMMIT
 
         return showViolationDialog(project, violations)
-    }
-
-    private fun collectViolations(
-        project: Project,
-        config: com.jakubjirak.gitworkflow.model.WorkflowConfig,
-        settings: GitWorkflowSettings,
-    ): List<Violation> {
-        val violations = mutableListOf<Violation>()
-        violations.addAll(WorkflowEnforcerEngine.validateCommitMessage(panel.commitMessage, config))
-        val branchName = getCurrentBranch(project)
-        if (branchName != null && settings.enableBranchValidation) {
-            violations.addAll(WorkflowEnforcerEngine.validateBranch(branchName, config))
-        }
-        return violations
     }
 
     private fun showViolationDialog(project: Project, violations: List<Violation>): ReturnResult {

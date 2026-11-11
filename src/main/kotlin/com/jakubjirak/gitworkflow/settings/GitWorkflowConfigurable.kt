@@ -47,8 +47,8 @@ class GitWorkflowConfigurable(private val project: Project) : BoundConfigurable(
         group("Team Configuration") {
             row {
                 comment(
-                    "Commit message rules (Conventional Commits, issue reference, subject length) and branch " +
-                        "patterns come from the selected preset. Override them for the whole team in a " +
+                    "Commit message rules (Conventional Commits, issue reference, subject length), branch " +
+                        "patterns and protected branches come from the selected preset. Override them for the whole team in a " +
                         "<code>.git-workflow.yaml</code> file in the project root.",
                 )
             }
