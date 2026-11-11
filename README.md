@@ -1,32 +1,23 @@
 # Git Workflow Enforcer
 
-[![Build](https://github.com/JirakJ/git-workflow-enforcer/actions/workflows/build.yml/badge.svg)](https://github.com/JirakJ/git-workflow-enforcer/actions/workflows/build.yml)
+[![Build](https://github.com/JirakJ/git-workflow-enforcer/actions/workflows/verify.yml/badge.svg)](https://github.com/JirakJ/git-workflow-enforcer/actions/workflows/verify.yml)
 [![Version](https://img.shields.io/badge/version-2026.8.0-blue.svg)](https://github.com/JirakJ/git-workflow-enforcer/releases)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
 > **Free & open source** — every feature is unlocked for everyone, no license needed. Licensed under [Apache-2.0](LICENSE).
 
-> Enforce team Git conventions — branch naming, commit format, and merge policies — directly in your JetBrains IDE.
+> Enforce team Git conventions — branch naming and commit message format — directly in your JetBrains IDE.
 
 ## ✨ Features
 
-- **Status bar indicator** — real-time compliance widget: `✓ Compliant` (green) or `✗ N Violation(s)` (red/yellow)
-- **Branch name validation** — 3 default patterns (feature, bugfix, hotfix) with violation warnings
-- **Commit message length check** — configurable max subject length (default 72 characters)
-- **Conventional Commits** — enforce `<type>(<scope>): <description>` format with 11 allowed types
-- **JIRA key validation** — require issue references matching `[A-Z]+-[0-9]+` in commit messages
-- **Pre-commit validation** — checkin handler blocks or warns on violations before commit
-- **Violations tool window** — grouped by type (Branch Naming / Commit Format / Merge Policy / Base Branch)
-- **Basic notifications** — warning and error balloons with fix suggestions
-- **All workflow presets** — Gitflow, Trunk-Based Development, GitHub Flow, and Custom
-- **Custom regex rules** — define your own branch naming patterns with allowed base branches
-- **Merge policy enforcement** — block direct pushes to protected branches, require pull requests
-- **Merge direction validation** — ensure branches merge to the correct target (e.g., feature → develop)
-- **Required reviewers per path** — CODEOWNERS-like rules with minimum approval counts
-- **Pre-push validation hook** — validate branch names, commit messages, and merge policy before push
-- **Team config file** — shared `.git-workflow.yaml` versioned in Git with auto-reload
-- **Audit log** — track all violations and overrides across the team
-- **Compliance dashboard** — team-wide compliance metrics and trends
+- **Status bar indicator** — `✓ Compliant` or `✗ N Violation(s)` for the current branch; click to refresh
+- **Branch name validation** — the current branch must match one of the preset's (or your) patterns
+- **Base branch check** — warns when a branch was created from a base its rule does not allow (e.g. `feature/*` from `main`)
+- **Commit message validation** — subject length, Conventional Commits format with allowed types, and an optional issue reference (e.g. `JIRA-123`)
+- **Pre-commit check** — violations are shown before the commit; choose **Commit Anyway** or **Cancel**
+- **Violations tool window** — current violations grouped by type with fix suggestions
+- **Workflow presets** — Gitflow, Trunk-Based Development, GitHub Flow and Custom
+- **Team config file** — shared `.git-workflow.yaml` in the project root overrides the preset's branch and commit rules
 
 ## 📦 Installation
 
@@ -46,111 +37,76 @@
 2. The status bar widget appears automatically — check your current compliance status
 3. Open **Settings** → **Tools** → **Git Workflow Enforcer** to select a workflow preset
 4. Create a branch or commit — the plugin validates in real-time
-5. Add a `.git-workflow.yaml` to your project root to share rules with the team
+5. Add a `.git-workflow.yaml` to your project root to share rules with the team (see below)
 
 ### Example `.git-workflow.yaml`
 
 ```yaml
-preset: gitflow
-branchRules:
+preset: gitflow                 # gitflow | trunk_based | github_flow | custom
+branches:                       # replaces the preset's branch rules
   - pattern: "feature/[A-Z]+-[0-9]+-.*"
-    allowedBase: ["develop"]
+    allowed_base: ["develop"]
     description: "Feature branches"
-  - pattern: "bugfix/[A-Z]+-[0-9]+-.*"
-    allowedBase: ["develop"]
-    description: "Bugfix branches"
-  - pattern: "hotfix/[A-Z]+-[0-9]+-.*"
-    allowedBase: ["main", "master"]
+  - pattern: "hotfix/.+"
+    allowed_base: ["main", "master"]
     description: "Hotfix branches"
-  - pattern: "release/[0-9]+\\.[0-9]+\\.[0-9]+"
-    allowedBase: ["develop"]
-    description: "Release branches"
-commitRules:
-  conventionalCommits: true
-  maxSubjectLength: 72
-  requireIssueRef: true
-  issueRefPattern: "[A-Z]+-\\d+"
-  allowedTypes:
-    - feat
-    - fix
-    - docs
-    - style
-    - refactor
-    - perf
-    - test
-    - build
-    - ci
-    - chore
-    - revert
-mergeRules:
-  protectedBranches: ["main", "master", "develop"]
-  requirePR: true
-  blockDirectPush: true
-reviewers:
-  - path: "src/main/kotlin/com/*/security/**"
-    required: ["@security-team"]
-    min_approvals: 2
-  - path: "*.gradle.kts"
-    required: ["@build-team"]
-    min_approvals: 1
+  - pattern: "main|master|develop"
+commits:                        # replaces the preset's commit rules
+  conventional_commits: true
+  max_subject_length: 72
+  require_issue_ref: true
+  issue_ref_pattern: "[A-Z]+-\\d+"
+  allowed_types: [feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert]
 ```
+
+The file is read each time a check runs, so edits take effect on the next commit or status refresh.
 
 ## ⚙️ Configuration
 
-Open **Settings** → **Tools** → **Git Workflow Enforcer** to configure:
+Open **Settings** → **Tools** → **Git Workflow Enforcer**:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Enabled | `true` | Enable or disable the plugin globally |
-| Workflow Preset | `Gitflow` | Workflow preset: Gitflow, Trunk-Based, GitHub Flow, or Custom |
-| Branch Validation | `true` | Validate branch names against preset patterns |
-| Commit Validation | `true` | Validate commit messages on commit |
-| Merge Validation | `true` | Validate merge targets against protected branch rules |
-| Conventional Commits | `true` | Require Conventional Commits format (`type(scope): description`) |
-| Require Issue Reference | `false` | Require JIRA/issue key in commit messages |
-| Max Subject Length | `72` | Maximum number of characters for the commit subject line |
-| Protected Branches | `main,master,develop` | Comma-separated list of branches protected from direct pushes |
+| Enabled | `true` | Enable or disable all checks |
+| Workflow Preset | `Gitflow` | Rules used when there is no `.git-workflow.yaml` |
+| Branch Validation | `true` | Check the current branch name (status bar, tool window, pre-commit) |
+| Commit Validation | `true` | Run the pre-commit check |
+
+Commit message rules come from the preset or `.git-workflow.yaml`.
 
 ## 🎯 Usage
 
 ### Workflow Presets
 
-| Preset | Branch Patterns | Protected Branches | Conventional Commits |
-|--------|----------------|--------------------|--------------------|
-| **Gitflow** | `feature/.+`, `bugfix/.+`, `release/.+`, `hotfix/.+` | main, master, develop | ✓ |
-| **Trunk-Based** | `[a-z0-9-]+/[a-z0-9-]+` | main | ✗ |
-| **GitHub Flow** | `[a-z0-9]+(-[a-z0-9]+)*` | main | ✗ |
-| **Custom** | User-defined regex | User-defined | Configurable |
+| Preset | Branch Patterns | Conventional Commits |
+|--------|-----------------|----------------------|
+| **Gitflow** | `feature/.+`, `bugfix/.+`, `release/.+`, `hotfix/.+`, `main`, `master`, `develop` | ✓ |
+| **Trunk-Based** | `[a-z0-9-]+/[a-z0-9-]+`, `main` | ✗ |
+| **GitHub Flow** | `[a-z0-9]+(-[a-z0-9]+)*`, `main` | ✗ |
+| **Custom** | from `.git-workflow.yaml` | from `.git-workflow.yaml` |
 
 ### Pre-commit Validation
 
-When you commit, the plugin validates your commit message and branch name. If violations are found:
-
-- **Errors** (red) — shown in a dialog; default action is **Cancel**
-- **Warnings** (yellow) — shown in a dialog; you can choose **Commit Anyway**
+When you commit, the plugin validates the commit message and the current branch name. If there are violations, a
+dialog lists errors and warnings; with errors the default button is **Cancel**, otherwise **Commit Anyway**.
 
 ### Status Bar Widget
 
-The bottom status bar shows real-time compliance:
-- `✓ Compliant` — no violations detected (green)
-- `⚠ N Violation(s)` — warnings or errors found (yellow/red)
-
-Click the widget to refresh the compliance check. Hover for a tooltip with violation details.
+- `✓ Compliant` — the current branch has no violations
+- `✗ N Violation(s)` — hover for details, click to re-check
 
 ### Violation Types
 
 | Type | Severity | Example |
 |------|----------|---------|
 | `BRANCH_NAME` | ERROR | Branch `my-branch` doesn't match any allowed pattern |
-| `COMMIT_FORMAT` | ERROR/WARNING | Missing Conventional Commits prefix or subject too long |
-| `MERGE_POLICY` | ERROR | Direct push to protected branch `main` |
+| `COMMIT_FORMAT` | ERROR/WARNING | Missing Conventional Commits prefix, subject too long, missing issue reference |
 | `BASE_BRANCH` | WARNING | Feature branch created from `main` instead of `develop` |
 
 ## 📋 Requirements
 
-- IntelliJ IDEA 2024.3+ (or any JetBrains IDE build 243–252.*)
+- IntelliJ IDEA 2023.2+ (or another IntelliJ-based IDE, build 232+)
 - Git4Idea plugin (bundled with all JetBrains IDEs)
-- Java 17+
 
 ## 🏗️ Building from Source
 
